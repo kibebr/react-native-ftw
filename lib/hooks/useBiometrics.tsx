@@ -4,6 +4,7 @@ import { authenticator, BiometricsAuthenticatorConfig, BiometricsAuthenticatorEr
 
 type UseBiometrics = [boolean, {
   authenticate: (config: BiometricsAuthenticatorConfig) => void,
+  unauthenticate: () => void
 }]
 
 type UseBiometricsProps = {
@@ -17,6 +18,7 @@ export const useBiometrics = ({ handleError }: UseBiometricsProps): UseBiometric
     authenticate: ({ description }) => authenticator.authenticate({ description })().then(fold(
       handleError,
       () => setAuthenticated(true)
-    ))
+    )),
+    unauthenticate: () => setAuthenticated(false)
   }]
 }

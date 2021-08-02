@@ -22,7 +22,7 @@ export const SeeAllDocumentsScreen = (): JSX.Element => {
   const { navigate } = useNavigation()
 
   return (
-    <WithBiometrics description='test' handleError={console.error}>
+    <WithBiometrics description='Authenticate to see your documents.' handleError={() => navigate('Claims')}>
       <DefaultView>
         <ViewTitle>Your documents</ViewTitle>
 

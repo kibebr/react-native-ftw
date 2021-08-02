@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from 'react'
-import { useFocusEffect } from '@react-navigation/native'
+import React, { FunctionComponent, useEffect } from 'react'
+import { useIsFocused } from '@react-navigation/native'
 import { useBiometrics } from 'hooks/useBiometrics'
 import { View } from 'react-native'
 import { BiometricsAuthenticatorError } from 'modules/biometrics'
@@ -11,11 +11,18 @@ type WithFingerprintProps = {
 
 export const WithBiometrics: FunctionComponent<WithFingerprintProps> = (props) => {
   const { children, description, handleError } = props
-  const [authenticated, { authenticate }] = useBiometrics({ handleError })
+  const [authenticated, { authenticate, unauthenticate }] = useBiometrics({ handleError })
+  const focused = useIsFocused()
 
-  useFocusEffect(() => {
-    authenticate({ description })
-  })
+  useEffect(() => {
+    if (focused) {
+      authenticate({ description })
+    }
+
+    if (!focused) {
+      unauthenticate()
+    }
+  }, [focused])
 
   if (authenticated) {
     return <>{children}</>
