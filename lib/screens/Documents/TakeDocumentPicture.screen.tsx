@@ -3,9 +3,11 @@ import { Button } from 'react-native-elements'
 import { DefaultView, ViewTitle } from 'components/View'
 import { useRef } from 'react'
 import { RNCamera } from 'react-native-camera'
+import { DocumentsStackParamList } from 'navigators/Documents'
+import { RouteProp } from '@react-navigation/native'
 import tailwind from 'tailwind-rn'
 
-export const TakeDocumentPictureScreen = () => {
+export const TakeDocumentPictureScreen = ({ route }: { route: RouteProp<DocumentsStackParamList, 'TakeDocumentPicture'> }) => {
   const cameraRef = useRef<null | RNCamera>(null)
 
   return (
@@ -21,7 +23,7 @@ export const TakeDocumentPictureScreen = () => {
         onPress={async () => {
           if (cameraRef.current !== null) {
             const data = await cameraRef.current.takePictureAsync()
-            console.log(data)
+            route.params.onPictureTaken(data.uri)
           }
         }}
       />

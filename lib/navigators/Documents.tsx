@@ -6,27 +6,26 @@ import { TakeDocumentPictureScreen } from 'screens/Documents/TakeDocumentPicture
 import { SeeAllDocumentsScreen } from 'screens/Documents/SeeAllDocuments.screen'
 import { createStackNavigator } from '@react-navigation/stack'
 import { Button } from 'react-native-elements'
-import { WithFingerprint } from '../screens/Fingerprint'
 import tailwind from 'tailwind-rn'
 
 export type DocumentsStackParamList = {
-  SeeDocument: { document: Document }
+  TakeDocumentPicture: { 
+    onPictureTaken: (picture: string) => void
+  }
+  SeeDocument: { 
+    document: Document
+  }
   CreateDocument: undefined
   Documents: undefined
 }
 
 const DocumentsStack = createStackNavigator<DocumentsStackParamList>()
-
 export const DocumentsNavigator = (): JSX.Element => {
   return (
     <DocumentsStack.Navigator>
       <DocumentsStack.Screen 
         name='Documents' 
-        component={() => (
-          <WithFingerprint handleError={console.error} description='Authenticate to see your documents.'>
-            <SeeAllDocumentsScreen />
-          </WithFingerprint>
-        )}
+        component={SeeAllDocumentsScreen}
         options={({ navigation }) => ({
           headerTintColor: 'white',
           headerStyle: tailwind('text-white bg-black'),
@@ -44,6 +43,13 @@ export const DocumentsNavigator = (): JSX.Element => {
         component={CreateDocumentScreen}
         options={() => ({
           title: 'Create a document'
+        })}
+      />
+      <DocumentsStack.Screen
+        name='TakeDocumentPicture'
+        component={TakeDocumentPictureScreen}
+        options={() => ({
+          title: 'Take a picture'
         })}
       />
       <DocumentsStack.Screen

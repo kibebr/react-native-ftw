@@ -1,30 +1,37 @@
-import FingerprintScanner, { FingerprintScannerError } from 'react-native-fingerprint-scanner'
-import { TaskEither, tryCatch } from 'fp-ts/TaskEither'
+import ReactNativeBiometrics from 'react-native-biometrics'
+import { TaskEither, left, right, chain, tryCatch } from 'fp-ts/TaskEither'
+import { pipe } from 'fp-ts/function'
+
+export type LibraryAuthenticatorResponse = {
+  success: boolean
+  error: string
+}
 
 export type BiometricsAuthenticatorError 
   = 'HardwareError'
   | 'UserCancel'
+  | 'FatalError'
 
 export type BiometricsAuthenticatorConfig = {
   description: string
 }
 
 export type BiometricsAuthenticator = {
-  authenticate: (config: BiometricsAuthenticatorConfig) => TaskEither<BiometricsAuthenticatorError, void>
+  authenticate: (config: BiometricsAuthenticatorConfig) => TaskEither<BiometricsAuthenticatorError, {}>
 }
 
-export const matchError = ({ name }: FingerprintScannerError): BiometricsAuthenticatorError => name as BiometricsAuthenticatorError
+export const authenticator: BiometricsAuthenticator = {
+  authenticate: (config) => pipe(
+    tryCatch(
+      () => ReactNativeBiometrics.simplePrompt({ promptMessage: config.description }),
+      (): BiometricsAuthenticatorError => 'FatalError'
+    ),
+    chain(({ success }) => {
+      if (success) {
+        return right({})
+      }
 
-export const androidAuthenticator: BiometricsAuthenticator = {
-  authenticate: (config) => tryCatch(
-    () => FingerprintScanner.authenticate({ description: config.description }),
-    matchError
-  )
-}
-
-export const iosAuthenticator: BiometricsAuthenticator = {
-  authenticate: (config) => tryCatch(
-    () => FingerprintScanner.authenticate({ description: config.description }),
-    matchError
+      return left('UserCancel')
+    })
   )
 }
