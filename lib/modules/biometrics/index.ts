@@ -8,8 +8,7 @@ export type LibraryAuthenticatorResponse = {
 }
 
 export type BiometricsAuthenticatorError 
-  = 'HardwareError'
-  | 'UserCancel'
+  = 'UserCancel'
   | 'FatalError'
 
 export type BiometricsAuthenticatorConfig = {
