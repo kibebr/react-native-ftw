@@ -1,16 +1,20 @@
 import React from 'react'
 import { Document } from '../domain/Document'
-import { DocumentsScreen, UploadDocumentsScreen, SeeDocumentScreen } from '../screens/Documents'
+import { SeeDocumentScreen } from 'screens/Documents/SeeDocument.screen'
+import { CreateDocumentScreen } from 'screens/Documents/CreateDocument.screen'
+import { TakeDocumentPictureScreen } from 'screens/Documents/TakeDocumentPicture.screen'
+import { SeeAllDocumentsScreen } from 'screens/Documents/SeeAllDocuments.screen'
 import { createStackNavigator } from '@react-navigation/stack'
 import { Button } from 'react-native-elements'
-import { withNavigation } from '@react-navigation'
 import { WithFingerprint } from '../screens/Fingerprint'
 import tailwind from 'tailwind-rn'
+
 export type DocumentsStackParamList = {
   SeeDocument: { document: Document }
-  UploadDocuments: undefined
+  CreateDocument: undefined
   Documents: undefined
 }
+
 const DocumentsStack = createStackNavigator<DocumentsStackParamList>()
 
 export const DocumentsNavigator = (): JSX.Element => {
@@ -20,7 +24,7 @@ export const DocumentsNavigator = (): JSX.Element => {
         name='Documents' 
         component={() => (
           <WithFingerprint handleError={console.error} description='Authenticate to see your documents.'>
-            <DocumentsScreen />
+            <SeeAllDocumentsScreen />
           </WithFingerprint>
         )}
         options={({ navigation }) => ({
@@ -28,18 +32,18 @@ export const DocumentsNavigator = (): JSX.Element => {
           headerStyle: tailwind('text-white bg-black'),
           headerRight: () => (
             <Button
-              title='Upload'
+              title='Create'
               type='clear'
-              onPress={() => navigation.navigate('UploadDocuments')}
+              onPress={() => navigation.navigate('CreateDocument')}
             />
           )
         })}
       />
       <DocumentsStack.Screen
-        name='UploadDocuments'
-        component={UploadDocumentsScreen}
+        name='CreateDocument'
+        component={CreateDocumentScreen}
         options={() => ({
-          title: 'Upload documents'
+          title: 'Create a document'
         })}
       />
       <DocumentsStack.Screen
