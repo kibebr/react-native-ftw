@@ -1,33 +1,25 @@
-import React, { useEffect } from 'react'
-import { Document } from 'domain/Document'
+import React from 'react'
+import { useUser } from 'hooks/useUser'
 import { DefaultView, ViewTitle } from 'components/View'
 import { Card } from 'react-native-elements'
 import { Text, View } from 'react-native'
-import { useNavigation, useFocusEffect } from '@react-navigation/native'
-import FingerprintScanner from 'react-native-fingerprint-scanner'
-import ReactNativeBiometrics from 'react-native-biometrics'
+import { useNavigation } from '@react-navigation/native'
 import { WithBiometrics } from 'screens/Biometrics'
 
-const documents: Document[] = [{
-  name: 'Driver License',
-  source: 'https://www.soundczech.cz/temp/lorem-ipsum.pdf',
-  published: new Date()
-}, {
-  name: 'BRP',
-  source: 'https://www.soundczech.cz/temp/lorem-ipsum.pdf',
-  published: new Date()
-}]
-
 export const SeeAllDocumentsScreen = (): JSX.Element => {
+  const [user] = useUser()
   const { navigate } = useNavigation()
 
   return (
-    <WithBiometrics description='Authenticate to see your documents.' handleError={() => navigate('Claims')}>
+    <WithBiometrics 
+      description='Authenticate to see your documents.' 
+      handleError={() => navigate('Claims')}
+    >
       <DefaultView>
         <ViewTitle>Your documents</ViewTitle>
 
         <Card>
-          {documents.map((document) => (
+          {user.documents.map((document) => (
             <View key={document.name}>
               <Text onPress={() => navigate('SeeDocument', { document })}>
                 {document.name}

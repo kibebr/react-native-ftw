@@ -46,7 +46,7 @@ const imagePickerResponseToDomainResponse = (response: ImagePickerResponse): Eit
 
 export const camera: Camera = {
   launch: (callback) => launchCamera(
-    { mediaType: 'photo' },
+    { mediaType: 'photo', maxWidth: 400, maxHeight: 400 },
     flow(imagePickerResponseToDomainResponse, callback)
   )
 }
