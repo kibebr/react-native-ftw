@@ -26,7 +26,6 @@ const App = (): JSX.Element => {
   // All the screens (Claims, Documents, Settings, etc.) will be using the logged-in user extensively, so we just wrap them in a Context
   // and the screens can access the logged-in user via the useUser hook
   //
-  console.log('updated!! session: ', session)
 
   return pipe(
     session,

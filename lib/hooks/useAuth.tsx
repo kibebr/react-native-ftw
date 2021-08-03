@@ -12,9 +12,6 @@ type UseAuth = [Option<User>, {
 export const useAuth = (): UseAuth => {
   const [session, setSession] = useState<Option<User>>(none)
 
-  useEffect(() => {
-    console.log(session)
-  }, [session])
   const handleLogin = (token: string) => {
     login(token)()
     .then(fold(
