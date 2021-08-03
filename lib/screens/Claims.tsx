@@ -7,7 +7,7 @@ export const ClaimsScreen = (): JSX.Element => {
 
   return (
     <DefaultView>
-      <ViewTitle>Claims</ViewTitle>
+      <ViewTitle>Claimasdads</ViewTitle>
     </DefaultView>
   )
 }

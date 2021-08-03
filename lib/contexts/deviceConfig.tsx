@@ -1,10 +1,7 @@
 import React, { useState, useEffect, createContext, FunctionComponent } from 'react'
 import { Option, none, some } from 'fp-ts/Option'
-import FingerprintScanner from 'react-native-fingerprint-scanner'
 
-export type DeviceConfigValue = {
-  biometrics: Option<'Touch ID' | 'Face ID' | 'Biometrics'>
-}
+export type DeviceConfigValue = {}
 
 const defaultDeviceConfigValue: DeviceConfigValue = {
   biometrics: none
@@ -16,8 +13,6 @@ export const DeviceConfigProvider: FunctionComponent = ({ children }) => {
   const [deviceConfig, setDeviceConfig] = useState<DeviceConfigValue>(defaultDeviceConfigValue)
 
   useEffect(() => {
-    FingerprintScanner.isSensorAvailable()
-      .then((biometrics) => setDeviceConfig({ biometrics: some(biometrics) }))
   }, [])
 
   return (

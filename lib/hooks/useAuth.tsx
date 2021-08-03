@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { login, loginFromStorage } from '../modules/auth'
 import { User } from '../domain/User'
 import { fold } from 'fp-ts/Either'
@@ -12,6 +12,9 @@ type UseAuth = [Option<User>, {
 export const useAuth = (): UseAuth => {
   const [session, setSession] = useState<Option<User>>(none)
 
+  useEffect(() => {
+    console.log(session)
+  }, [session])
   const handleLogin = (token: string) => {
     login(token)()
     .then(fold(

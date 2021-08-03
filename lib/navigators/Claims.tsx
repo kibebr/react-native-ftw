@@ -11,12 +11,12 @@ const ClaimsStack = createStackNavigator<ClaimsStackParamList>()
 
 export const ClaimsNavigator = (): JSX.Element => {
   return (
-    <ClaimsStack.Navigator>
+    <ClaimsStack.Navigator screenOptions={{ headerShown: false }}>
       <ClaimsStack.Screen 
         name='Claims' 
         component={ClaimsScreen}
         options={{
-          headerTintColor: 'white',
+          headerTintColor: 'red',
           headerStyle: tailwind('text-white bg-black')
         }}
       />

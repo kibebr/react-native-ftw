@@ -23,8 +23,8 @@ export const DocumentsNavigator = (): JSX.Element => {
         name='Documents' 
         component={SeeAllDocumentsScreen}
         options={({ navigation }) => ({
-          headerTintColor: 'white',
-          headerStyle: tailwind('text-white bg-black'),
+          headerTintColor: 'black',
+          headerStyle: tailwind('text-white bg-white'),
           headerRight: () => (
             <Button
               title='Create'

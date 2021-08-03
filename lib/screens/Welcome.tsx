@@ -1,20 +1,13 @@
 import React, { useState } from 'react'
-import { User } from '../domain/User'
 import tailwind from 'tailwind-rn'
 import { DefaultView } from '../components/View'
 import { Button } from 'react-native-elements'
-import { Text, Button as NativeButton, TextInput, View, TextInputProps } from 'react-native'
+import { Text, TextInput, View } from 'react-native'
+import { RouteProp, useRoute } from '@react-navigation/native'
+import { WelcomeStackRoute } from 'App'
 
-type WelcomeProps = {
-  handleLogin: (token: string) => void
-}
-
-const login = (_token: string): Promise<User> => Promise.resolve({
-  name: 'Vitor',
-  documents: []
-})
-
-export const Welcome = ({ handleLogin }: WelcomeProps): JSX.Element => {
+export const Welcome = (): JSX.Element => {
+  const { params: { handleLogin } } = useRoute<RouteProp<WelcomeStackRoute, 'Login'>>()
   const [token, setToken] = useState<string>('')
 
   return (
@@ -34,9 +27,7 @@ export const Welcome = ({ handleLogin }: WelcomeProps): JSX.Element => {
           title='Log-in'
           containerStyle={tailwind('my-4')}
           buttonStyle={tailwind('p-4')}
-          onPress={() => {
-            handleLogin(token)
-          }}
+          onPress={() => handleLogin(token)}
         />
       </View>
     </DefaultView>

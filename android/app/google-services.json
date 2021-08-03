@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "157649799383",
+    "project_id": "portal-demo-dd067",
+    "storage_bucket": "portal-demo-dd067.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157649799383:android:74c5b56b7bbd20a7ff8892",
+        "android_client_info": {
+          "package_name": "com.portal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "157649799383-hpgvpb7nne7a6jk3oiqop98uqn4ahvqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABHGOrtzDqfC7vItgHhCB8M81FMOenyRU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "157649799383-hpgvpb7nne7a6jk3oiqop98uqn4ahvqn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
